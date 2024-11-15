@@ -1,6 +1,9 @@
-package com.gespyme.authenticator.controller;
+package com.gespyme.authenticator.infrastructure.adapters.input.controller;
 
-import com.gespyme.authenticator.service.TokenAdministratorService;
+import com.gespyme.authenticator.application.usecase.GetTokenUseCase;
+import com.gespyme.authenticator.application.usecase.ValidateTokenUseCase;
+import com.gespyme.authenticator.domain.model.Token;
+import com.gespyme.authenticator.infrastructure.mapper.TokenMapper;
 import com.gespyme.commons.model.auth.TokenEntity;
 import com.gespyme.commons.model.auth.UserAccountDetails;
 import lombok.RequiredArgsConstructor;
@@ -14,20 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 @RequiredArgsConstructor
 public class AtuhenticatorController {
-  private final TokenAdministratorService service;
+  private final GetTokenUseCase getTokenUseCase;
+  private final ValidateTokenUseCase validateTokenUseCase;
+  private final TokenMapper tokenMapper;
 
   @PostMapping
   private ResponseEntity<TokenEntity> getToken(
       @RequestBody UserAccountDetails userAccountDetailsModelApi) {
     String token =
-        service.getToken(
+        getTokenUseCase.getToken(
             userAccountDetailsModelApi.getEmail(), userAccountDetailsModelApi.getPassword());
     return ResponseEntity.ok(TokenEntity.builder().token(token).build());
   }
 
   @PostMapping("/validate")
   private ResponseEntity<TokenEntity> validateToken(@RequestBody TokenEntity tokenEntity) {
-    boolean isValid = service.validateToken(tokenEntity.getToken());
-    return ResponseEntity.ok(TokenEntity.builder().isValid(isValid).build());
+    Token token = validateTokenUseCase.validateToken(tokenMapper.map(tokenEntity));
+    return ResponseEntity.ok(TokenEntity.builder().isValid(token.getIsValid()).build());
   }
 }

@@ -1,12 +1,11 @@
-package com.gespyme.authenticator.repository;
+package com.gespyme.authenticator.domain.model;
+
+import lombok.Data;
 
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class UserEntity {
+@Data
+public class User {
   private String userId;
   private String email;
   private String password;
