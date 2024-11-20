@@ -1,4 +1,4 @@
-package com.gespyme.authenticator.infrastructure.adapters.output.repository.token;
+package com.gespyme.authenticator.infrastructure.adapters.output.repository.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
-import javax.management.relation.Role;
 
 public class TokenCreator {
   /*

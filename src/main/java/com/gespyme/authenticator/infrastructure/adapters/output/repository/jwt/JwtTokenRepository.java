@@ -1,10 +1,10 @@
-package com.gespyme.authenticator.infrastructure.adapters.output.repository.token;
+package com.gespyme.authenticator.infrastructure.adapters.output.repository.jwt;
 
 import com.gespyme.authenticator.auth.TokenExtractor;
 import com.gespyme.authenticator.domain.model.Token;
 import com.gespyme.authenticator.domain.repository.TokenRepository;
 import java.util.Date;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
